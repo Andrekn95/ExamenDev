@@ -4,6 +4,7 @@ services:
 
   traefik:
     image: traefik:v3.5
+    container_name: traefik
     restart: unless-stopped
 
     command:
@@ -35,7 +36,7 @@ services:
 
   postgres:
     image: postgres:17-alpine
-
+    container_name: postgres-db
     restart: unless-stopped
 
     environment:
@@ -49,7 +50,7 @@ services:
       - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
 
     healthcheck:
-      test: ["CMD-SHELL","pg_isready -U ${POSTGRES_USER}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -61,6 +62,7 @@ services:
     build:
       context: ./backend
 
+    container_name: flask-backend
     restart: unless-stopped
 
     depends_on:
@@ -80,7 +82,7 @@ services:
 
     labels:
       - traefik.enable=true
-      - traefik.http.routers.backend.rule=Host(`api.midominio.com`)
+      - traefik.http.routers.backend.rule=Host(`pilapanta.byronrm.com`) && PathPrefix(`/api`)
       - traefik.http.routers.backend.entrypoints=websecure
       - traefik.http.routers.backend.tls.certresolver=letsencrypt
       - traefik.http.services.backend.loadbalancer.server.port=5000
@@ -89,6 +91,7 @@ services:
     build:
       context: ./front
 
+    container_name: angular-frontend
     restart: unless-stopped
 
     depends_on:
@@ -99,14 +102,14 @@ services:
 
     labels:
       - traefik.enable=true
-      - traefik.http.routers.frontend.rule=Host(`app.midominio.com`)
+      - traefik.http.routers.frontend.rule=Host(`pilapanta.byronrm.com`)
       - traefik.http.routers.frontend.entrypoints=websecure
       - traefik.http.routers.frontend.tls.certresolver=letsencrypt
       - traefik.http.services.frontend.loadbalancer.server.port=80
 
   pgadmin:
     image: dpage/pgadmin4:latest
-
+    container_name: pgadmin
     restart: unless-stopped
 
     depends_on:
@@ -125,7 +128,7 @@ services:
 
   portainer:
     image: portainer/portainer-ce:lts
-
+    container_name: portainer
     restart: unless-stopped
 
     command: -H unix:///var/run/docker.sock
@@ -139,9 +142,11 @@ services:
 
     labels:
       - traefik.enable=true
-      - traefik.http.routers.portainer.rule=Host(`portainer.midominio.com`)
+      - traefik.http.routers.portainer.rule=Host(`pilapanta.byronrm.com`) && PathPrefix(`/portainer`)
       - traefik.http.routers.portainer.entrypoints=websecure
       - traefik.http.routers.portainer.tls.certresolver=letsencrypt
+      - traefik.http.middlewares.portainer-stripprefix.stripprefix.prefixes=/portainer
+      - traefik.http.routers.portainer.middlewares=portainer-stripprefix
       - traefik.http.services.portainer.loadbalancer.server.port=9000
 
 volumes:
@@ -154,4 +159,4 @@ networks:
     driver: bridge
 
   internal:
-    driver: bridge0
+    driver: bridge
