@@ -1,0 +1,44 @@
+<div class="glass-card p-6 rounded-3xl max-w-xl mx-auto mt-8">
+
+  <h2 class="tour-title-form mb-6">📋 Resumen de Registro</h2>
+
+  <div class="space-y-4">
+
+    <!-- Huésped -->
+    <div class="glass-card p-4 rounded-2xl">
+      <h3 class="tour-title-form mb-3">👤 Huésped</h3>
+      <p class="text-white text-sm"><span class="text-green-300 font-semibold">Nombre:</span> {{ huesped().nombreCompleto || 'No registrado' }}</p>
+      <p class="text-white text-sm mt-1"><span class="text-green-300 font-semibold">Correo:</span> {{ huesped().correo || 'No registrado' }}</p>
+      <p class="text-white text-sm mt-1"><span class="text-green-300 font-semibold">Teléfono:</span> {{ huesped().telefono || 'No registrado' }}</p>
+      <p class="text-white text-sm mt-1"><span class="text-green-300 font-semibold">Acompañantes:</span> {{ huesped().acompanantes }}</p>
+    </div>
+
+    <!-- Restaurante -->
+    <div class="glass-card p-4 rounded-2xl">
+      <h3 class="tour-title-form mb-3">🍽️ Restaurante</h3>
+      <p class="text-white text-sm"><span class="text-green-300 font-semibold">Desayuno:</span> {{ restaurante().desayuno || 'No registrado' }}</p>
+      <p class="text-white text-sm mt-1"><span class="text-green-300 font-semibold">Bebida desayuno:</span> {{ restaurante().bebidaDesayuno[0] || 'No registrado' }}</p>
+      <p class="text-white text-sm mt-1"><span class="text-green-300 font-semibold">Almuerzo:</span> {{ restaurante().almuerzo || 'No registrado' }}</p>
+      <p class="text-white text-sm mt-1"><span class="text-green-300 font-semibold">Bebida almuerzo:</span> {{ restaurante().bebidaAlmuerzo[0] || 'No registrado' }}</p>
+      <p class="text-white text-sm mt-1"><span class="text-green-300 font-semibold">Alergias:</span> {{ restaurante().alergias || 'Ninguna' }}</p>
+    </div>
+
+    <!-- Tour -->
+    <div class="glass-card p-4 rounded-2xl">
+      <h3 class="tour-title-form mb-3">🌿 Tour</h3>
+      <p class="text-white text-sm"><span class="text-green-300 font-semibold">Actividad:</span> {{ tour().actividad || 'No registrado' }}</p>
+      <p class="text-white text-sm mt-1"><span class="text-green-300 font-semibold">Alojamiento:</span> {{ tour().alojamiento || 'No registrado' }}</p>
+      <p class="text-white text-sm mt-1"><span class="text-green-300 font-semibold">Compromiso:</span> {{ tour().aceptaCompromiso ? 'Aceptado ✅' : 'No aceptado ❌' }}</p>
+    </div>
+
+    <!-- Botones -->
+    <button class="btn-tour-base btn-tour-save" (click)="guardar()">
+      Guardar Registro
+    </button>
+
+    <button class="btn-tour-base btn-tour-next" (click)="limpiar()">
+      Limpiar y Empezar de Nuevo
+    </button>
+
+  </div>
+</div>

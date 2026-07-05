@@ -1,0 +1,192 @@
+@import "tailwindcss";
+
+/* Fondo del Amazonas para toda la aplicación */
+body {
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), 
+                    url('https://www.fundacionaquae.org/wp-content/uploads/2016/01/SelvaAmazonica.jpg.webp');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* ==========================================================================
+   FICHAS DE ESTILO REUTILIZABLES (Glassmorphism & Typography)
+   ========================================================================== */
+
+/* 1. Contenedor Principal o Tarjeta de Formulario (Glassmorphism) */
+.glass-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* 2. Título Principal de la Aplicación */
+.tour-title-main {
+  color: #ffffff;
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 800; /* font-extrabold */
+  letter-spacing: -0.025em; /* tracking-tight */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* 3. Encabezados de cada Formulario (Título 2) */
+.tour-title-form {
+  color: #f0fdf4; /* Verde ultra claro (green-50) */
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 700; /* font-bold */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* 4. Diseño de los Campos de Entrada (Inputs / Textareas Glass) */
+.glass-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 0.625rem 1rem; /* py-2.5 px-4 */
+  color: #ffffff;
+  font-size: 0.875rem; /* text-sm */
+  transition: all 0.2s ease-in-out;
+}
+
+.glass-input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #4ade80; /* green-400 */
+  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.25);
+}
+
+/* Estilo para los placeholders de los inputs */
+.glass-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+/* ==========================================================================
+   BOTONES DE FLUJO Y GUARDADO (Estilos Reutilizables)
+   ========================================================================== */
+
+/* 1. Estructura Base para los botones de acción del formulario */
+.btn-tour-base {
+  width: 100%;
+  margin-top: 1rem;      /* mt-4 */
+  font-weight: 700;       /* font-bold */
+  padding: 0.75rem 1rem;  /* py-3 px-4 */
+  border-radius: 0.75rem; /* rounded-xl */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+/* Efecto de clic para todos los botones base */
+.btn-tour-base:active {
+  transform: scale(0.98);
+}
+
+/* 2. Variante: Botón "Siguiente" (Verde Jungla) */
+.btn-tour-next {
+  background: linear-gradient(135deg, #22c55e, #059669); /* from-green-500 to-emerald-600 */
+  color: #ffffff;
+  box-shadow: 0 4px 14px 0 rgba(34, 197, 94, 0.3);
+}
+
+.btn-tour-next:hover {
+  background: linear-gradient(135deg, #16a34a, #047857); /* Oscurece al pasar el mouse */
+  box-shadow: 0 6px 20px 0 rgba(34, 197, 94, 0.4);
+}
+
+/* 3. Variante: Botón "Guardar / Enviar" (Azul Río/Teal Destacado) */
+.btn-tour-save {
+  background: linear-gradient(135deg, #06b6d4, #0d9488); /* from-cyan-500 to-teal-600 */
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 14px 0 rgba(6, 182, 212, 0.4);
+}
+
+.btn-tour-save:hover {
+  background: linear-gradient(135deg, #0891b2, #115e59);
+  box-shadow: 0 6px 20px 0 rgba(6, 182, 212, 0.5);
+}
+
+/* 4. Estilo para los botones de la barra de navegación inferior */
+.btn-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  transition: all 0.2s ease-in-out;
+  flex: 1 1 0%;
+  cursor: pointer;
+}
+
+.tour-label {
+  @apply text-white text-sm block mb-2;
+}
+
+.tour-error {
+  @apply text-red-600 text-xs mt-1 block font-semibold drop-shadow-[0_1px_1px_rgba(0,0,0,0.2)];
+}
+
+
+/* Fondo oscuro con letras blancas al desplegar */
+.select-custom-dropdown option {
+  background-color: #1a1a1a !important; /* Forzamos un fondo oscuro para el menú caído */
+  color: #ffffff !important;            /* Forzamos el texto blanco */
+}
+
+/* Estilo cuando pasas el mouse por encima de las opciones (algunos navegadores lo permiten) */
+.select-custom-dropdown option:hover,
+.select-custom-dropdown option:focus {
+  background-color: #333333 !important;
+}
+.btn-nav {
+  background: linear-gradient(135deg, #06b6d4, #0d9488);
+  color: #ffffff;
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 14px 0 rgba(6, 182, 212, 0.4);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.btn-nav:hover {
+  background: linear-gradient(135deg, #0891b2, #115e59);
+}
+.tour-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 0.875rem;
+}
+
+.tour-option-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.tour-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.tour-radio {
+  accent-color: #4ade80;
+  width: 1rem;
+  height: 1rem;
+}

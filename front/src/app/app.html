@@ -1,0 +1,37 @@
+<div class="min-h-screen relative">
+
+  <!-- Botones de navegación -->
+  <div class="flex gap-4 justify-center pt-8 px-4">
+  <button class="btn-nav" (click)="cambiarPantalla('huesped')">👤 Huésped</button>
+  <button class="btn-nav" (click)="cambiarPantalla('restaurante')">🍽️ Restaurante</button>
+  <button class="btn-nav" (click)="cambiarPantalla('tour')">🌿 Tour</button>
+  <button class="btn-nav" (click)="cambiarPantalla('resumen')">📋 Finalizar Registro</button>
+</div>
+
+  <!-- Contenido según pantalla activa -->
+  @if (pantallaActual() === 'huesped') {
+    <app-huesped
+      [titulo]="tituloAplicacion()"
+      (formularioCompletado)="recibirEvento($event)">
+    </app-huesped>
+  }
+
+  @if (pantallaActual() === 'restaurante') {
+    <app-restaurante
+    
+      (formularioCompletado)="recibirEvento($event)">
+    </app-restaurante>
+  }
+
+  @if (pantallaActual() === 'tour') {
+    <app-tour
+      (formularioCompletado)="recibirEvento($event)">
+    </app-tour>
+  }
+
+ @if (pantallaActual() === 'resumen') {
+  <app-resumen
+    (formularioCompletado)="recibirEvento($event)">
+  </app-resumen>
+}
+</div>

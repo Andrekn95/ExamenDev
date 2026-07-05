@@ -1,0 +1,61 @@
+<div class="glass-card p-6 rounded-3xl max-w-xl mx-auto mt-8">
+
+  <h2 class="tour-title-form mb-6">
+    👤 {{ titulo() }}
+  </h2>
+
+  <div class="space-y-4">
+
+    <div>
+      <label class="tour-label">
+        Nombres completos
+      </label>
+      <input type="text" class="glass-input" placeholder="Ingrese nombres completos"
+        [formField]="huespedForm.nombreCompleto">
+      @if (huespedForm.nombreCompleto().touched() && !huespedForm.nombreCompleto().valid()) {
+      <span class="tour-error">
+        Solo letras, máximo 30 caracteres
+      </span>
+      }
+    </div>
+
+    <div>
+      <label class="tour-label">
+        Teléfono
+      </label>
+      <input type="text" class="glass-input" placeholder="09XXXXXXXX" [formField]="huespedForm.telefono">
+      @if (huespedForm.telefono().touched() && !huespedForm.telefono().valid()) {
+      <span class="tour-error">
+        Debe empezar con 09 y tener 10 dígitos
+      </span>
+      }
+    </div>
+
+    <div>
+      <label class="tour-label">
+        Correo electrónico
+      </label>
+      <input type="email" class="glass-input" placeholder="correo@ejemplo.com" [formField]="huespedForm.correo">
+      @if (huespedForm.correo().touched() && !huespedForm.correo().valid()) {
+      <span class="tour-error">
+        Ingrese un correo válido
+      </span>
+      }
+    </div>
+
+    <div>
+      <label class="tour-label">Acompañantes</label>
+      <select class="glass-input select-custom-dropdown" [formField]="huespedForm.acompanantes">
+        <option value="2">2 personas</option>
+        <option value="3">3 personas</option>
+        <option value="4">4 personas</option>
+      </select>
+    </div>
+
+    <button class="btn-tour-base btn-tour-save" (click)="siguiente()">
+      Siguiente
+    </button>
+
+  </div>
+
+</div>

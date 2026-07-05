@@ -1,0 +1,103 @@
+<div class="glass-card p-6 rounded-3xl max-w-xl mx-auto mt-8">
+
+    <!-- Huésped solo lectura -->
+    <div class="glass-card p-4 rounded-2xl mb-4">
+        <h3 class="tour-title-form mb-3">👤 Datos del Huésped</h3>
+        <p class="text-white text-sm"><span class="text-green-300 font-semibold">Nombre:</span> {{
+            huesped().nombreCompleto || 'No registrado' }}</p>
+        <p class="text-white text-sm mt-1"><span class="text-green-300 font-semibold">Correo:</span> {{ huesped().correo
+            || 'No registrado' }}</p>
+        <p class="text-white text-sm mt-1"><span class="text-green-300 font-semibold">Teléfono:</span> {{
+            huesped().telefono || 'No registrado' }}</p>
+        <p class="text-white text-sm mt-1"><span class="text-green-300 font-semibold">Acompañantes:</span> {{
+            huesped().acompanantes }}</p>
+    </div>
+
+    <!-- Restaurante solo lectura -->
+    <div class="glass-card p-4 rounded-2xl mb-6">
+        <h3 class="tour-title-form mb-3">🍽️ Datos del Restaurante</h3>
+        <p class="text-white text-sm"><span class="text-green-300 font-semibold">Desayuno:</span> {{
+            restaurante().desayuno || 'No registrado' }}</p>
+        <p class="text-white text-sm mt-1"><span class="text-green-300 font-semibold">Bebida desayuno:</span> {{
+            restaurante().bebidaDesayuno[0] || 'No registrado' }}</p>
+        <p class="text-white text-sm mt-1"><span class="text-green-300 font-semibold">Almuerzo:</span> {{
+            restaurante().almuerzo || 'No registrado' }}</p>
+        <p class="text-white text-sm mt-1"><span class="text-green-300 font-semibold">Bebida almuerzo:</span> {{
+            restaurante().bebidaAlmuerzo[0] || 'No registrado' }}</p>
+        <p class="text-white text-sm mt-1"><span class="text-green-300 font-semibold">Alergias:</span> {{
+            restaurante().alergias || 'Ninguna' }}</p>
+    </div>
+
+    <h2 class="tour-title-form mb-6">🌿 Registro del Tour</h2>
+
+    <div class="space-y-6">
+
+        <!-- Actividad -->
+        <div class="tour-section">
+            <label class="tour-label">Actividad</label>
+            <div class="tour-option-group">
+                @for (opcion of [
+                {value: 'caminata', label: 'Caminata por el Bosque Nublado'},
+                {value: 'kayak', label: 'Kayak'},
+                {value: 'inmersion_cultural', label: 'Inmersión Cultural'}
+                ]; track opcion.value) {
+                <label class="tour-option">
+                    <input type="radio" name="actividad" class="tour-radio"
+                        [checked]="datos().actividad === opcion.value"
+                        (change)="datos.update(d => ({...d, actividad: opcion.value}))">
+                    {{ opcion.label }}
+                </label>
+                }
+            </div>
+        </div>
+
+        <!-- Alojamiento -->
+        <div class="tour-section">
+            <label class="tour-label">Tipo de Alojamiento</label>
+            <div class="tour-option-group">
+                @for (opcion of [
+                {value: 'eco_lodge', label: 'Eco-lodge'},
+                {value: 'camping', label: 'Camping'},
+                {value: 'cabana', label: 'Cabaña'}
+                ]; track opcion.value) {
+                <label class="tour-option">
+                    <input type="radio" name="alojamiento" class="tour-radio"
+                        [checked]="datos().alojamiento === opcion.value"
+                        (change)="datos.update(d => ({...d, alojamiento: opcion.value}))">
+                    {{ opcion.label }}
+                </label>
+                }
+            </div>
+        </div>
+
+        <!-- Compromiso de Turismo Sostenible -->
+        <div class="tour-section">
+            <label class="tour-label">Compromiso de Turismo Sostenible</label>
+            <div class="glass-card p-4 rounded-2xl text-white text-sm space-y-2">
+                <p>Para garantizar la preservación del entorno y el respeto a las comunidades locales, el participante
+                    se compromete a:</p>
+                <p>🗑️ <span class="font-semibold">Manejo de residuos:</span> Llevar toda la basura generada durante el
+                    trayecto.</p>
+                <p>🦜 <span class="font-semibold">Interacción con la fauna:</span> Observación a distancia segura, sin
+                    alterar el hábitat ni alimentar animales.</p>
+                <p>🤝 <span class="font-semibold">Respeto cultural:</span> Respetar las costumbres y tradiciones de las
+                    comunidades locales.</p>
+            </div>
+
+            <label class="tour-option mt-3">
+                <input type="checkbox" class="tour-radio" [checked]="datos().aceptaCompromiso"
+                    (change)="datos.update(d => ({...d, aceptaCompromiso: !d.aceptaCompromiso}))">
+                Acepto el Compromiso de Turismo Sostenible
+            </label>
+
+            @if (!datos().aceptaCompromiso) {
+            <span class="tour-error">Debes aceptar el compromiso para continuar</span>
+            }
+        </div>
+
+        <button class="btn-tour-base btn-tour-save" (click)="siguiente()">
+            Siguiente
+        </button>
+
+    </div>
+</div>

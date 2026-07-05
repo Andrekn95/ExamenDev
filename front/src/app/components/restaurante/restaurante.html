@@ -1,0 +1,127 @@
+<div class="glass-card p-6 rounded-3xl max-w-xl mx-auto mt-8">
+
+  <!-- Huésped solo lectura -->
+  <div class="glass-card p-4 rounded-2xl mb-6">
+    <h3 class="tour-title-form mb-3">👤 Datos del Huésped</h3>
+    <p class="text-white text-sm"><span class="text-green-300 font-semibold">Nombre:</span> {{ huesped().nombreCompleto
+      || 'No registrado' }}</p>
+    <p class="text-white text-sm mt-1"><span class="text-green-300 font-semibold">Correo:</span> {{ huesped().correo ||
+      'No registrado' }}</p>
+    <p class="text-white text-sm mt-1"><span class="text-green-300 font-semibold">Teléfono:</span> {{ huesped().telefono
+      || 'No registrado' }}</p>
+    <p class="text-white text-sm mt-1"><span class="text-green-300 font-semibold">Acompañantes:</span> {{
+      huesped().acompanantes }}</p>
+  </div>
+
+  <h2 class="tour-title-form mb-6">
+    🍽️ Registro de Restaurante</h2>
+
+  <div class="space-y-6">
+
+    <!-- Desayuno -->
+    <div class="tour-section">
+      <label class="tour-label">Desayuno</label>
+      <div class="tour-option-group">
+        @for (opcion of [
+        {value: 'encebollado', label: 'Encebollado'},
+        {value: 'tigrillo', label: 'Tigrillo'},
+        {value: 'continental', label: 'Continental'}
+        ]; track opcion.value) {
+        <label class="tour-option">
+          <input type="radio" name="desayuno" class="tour-radio" [checked]="datos().desayuno === opcion.value"
+            (change)="datos.update(d => ({...d, desayuno: opcion.value}))">
+          {{ opcion.label }}
+        </label>
+        }
+      </div>
+    </div>
+
+    <!-- Bebida Desayuno -->
+    <div class="tour-section">
+      <label class="tour-label">Bebida para el desayuno</label>
+      <div class="tour-option-group">
+        @for (bebida of bebidas; track bebida) {
+        <label class="tour-option">
+          <input type="radio" name="bebidaDesayuno" class="tour-radio" [checked]="datos().bebidaDesayuno === bebida"
+            (change)="datos.update(d => ({...d, bebidaDesayuno: bebida}))">
+          {{ bebida }}
+        </label>
+        }
+      </div>
+      @if (!datos().bebidaDesayuno) {
+      <span class="tour-error">Selecciona una bebida</span>
+      }
+    </div>
+
+    <!-- Almuerzo -->
+    <div class="tour-section">
+      <label class="tour-label">Almuerzo</label>
+      <div class="tour-option-group">
+        @for (opcion of [
+        {value: 'seco_pollo', label: 'Seco de Pollo'},
+        {value: 'churrasco', label: 'Churrasco'},
+        {value: 'tilapia', label: 'Tilapia'}
+        ]; track opcion.value) {
+        <label class="tour-option">
+          <input type="radio" name="almuerzo" class="tour-radio" [checked]="datos().almuerzo === opcion.value"
+            (change)="datos.update(d => ({...d, almuerzo: opcion.value}))">
+          {{ opcion.label }}
+        </label>
+        }
+      </div>
+    </div>
+
+    <!-- Bebida Almuerzo -->
+    <div class="tour-section">
+      <label class="tour-label">Bebida para el almuerzo</label>
+      <div class="tour-option-group">
+        @for (bebida of bebidas; track bebida) {
+        <label class="tour-option">
+          <input type="radio" name="bebidaAlmuerzo" class="tour-radio" [checked]="datos().bebidaAlmuerzo === bebida"
+            (change)="datos.update(d => ({...d, bebidaAlmuerzo: bebida}))">
+          {{ bebida }}
+        </label>
+        }
+      </div>
+      @if (!datos().bebidaAlmuerzo) {
+      <span class="tour-error">Selecciona una bebida</span>
+      }
+    </div>
+
+    <!-- Alergias -->
+    <div class="tour-section">
+      <label class="tour-label">¿Tienes alergias alimentarias?</label>
+      <div class="flex gap-6">
+        <label class="tour-option">
+          <input type="radio" name="tieneAlergias" class="tour-radio" [checked]="datos().tieneAlergias"
+            (change)="datos.update(d => ({...d, tieneAlergias: true}))">
+          Sí
+        </label>
+        <label class="tour-option">
+          <input type="radio" name="tieneAlergias" class="tour-radio" [checked]="!datos().tieneAlergias"
+            (change)="datos.update(d => ({...d, tieneAlergias: false}))">
+          No
+        </label>
+      </div>
+
+      @if (datos().tieneAlergias) {
+      <div class="mt-3">
+        <label class="tour-label">Describe tus alergias</label>
+        <textarea class="glass-input" placeholder="Máximo 50 palabras..." rows="3" [value]="datos().alergias"
+          (input)="datos.update(d => ({...d, alergias: $any($event.target).value}))">
+          </textarea>
+        @if (datos().alergias.trim().length === 0) {
+        <span class="tour-error" placeholder="Describe tus alergias">
+          Describe tus alergias
+        </span>
+        }
+      </div>
+      }
+    </div>
+
+    <button class="btn-tour-base btn-tour-save" (click)="siguiente()">
+      Siguiente
+    </button>
+
+  </div>
+</div>
