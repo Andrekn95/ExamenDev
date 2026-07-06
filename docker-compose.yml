@@ -1,4 +1,4 @@
-version: "3.9"
+
 
 services:
 
@@ -59,12 +59,12 @@ services:
       - internal
 
   backend:
-    build:
-      context: ./backend
+    image: ghcr.io/andrekn95/examendev-backend:latest
+    pull_policy: always
 
     container_name: flask-backend
     restart: unless-stopped
-
+  
     depends_on:
       postgres:
         condition: service_healthy
@@ -88,8 +88,8 @@ services:
       - traefik.http.services.backend.loadbalancer.server.port=5000
 
   frontend:
-    build:
-      context: ./front
+    image: ghcr.io/andrekn95/examendev-frontend:latest
+    pull_policy: always
 
     container_name: angular-frontend
     restart: unless-stopped
