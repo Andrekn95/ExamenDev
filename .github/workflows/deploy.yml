@@ -31,6 +31,11 @@ jobs:
       - name: Push Backend
         run: |
           docker push ghcr.io/andrekn95/examendev-backend:latest
+      
+      - name: Mostrar estructura
+        run: |
+          ls -la
+          ls -la front
 
       - name: Build Frontend
         run: |
