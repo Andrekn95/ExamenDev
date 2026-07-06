@@ -10,7 +10,7 @@
       <label class="tour-label">
         Nombres completos
       </label>
-      <input type="text" class="glass-input" placeholder="Ingrese nombres completos sin acentos"
+      <input type="text" class="glass-input" placeholder="Ingrese nombres completos"
         [formField]="huespedForm.nombreCompleto">
       @if (huespedForm.nombreCompleto().touched() && !huespedForm.nombreCompleto().valid()) {
       <span class="tour-error">
@@ -19,7 +19,7 @@
       }
     </div>
 
-    <div>
+    <div>s
       <label class="tour-label">
         Teléfono
       </label>
