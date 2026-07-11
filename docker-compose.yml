@@ -79,13 +79,13 @@ services:
       - proxy
       - internal
 
-  labels:
-    - traefik.enable=true
-    - traefik.docker.network=devops-proyecto1_proxy
-    - traefik.http.routers.backend.rule=Host(`backend.pilapanta.byronrm.com`)
-    - traefik.http.routers.backend.entrypoints=websecure
-    - traefik.http.routers.backend.tls.certresolver=letsencrypt
-    - traefik.http.services.backend.loadbalancer.server.port=5000
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=devops-proyecto1_proxy
+      - traefik.http.routers.backend.rule=Host(`backend.pilapanta.byronrm.com`)
+      - traefik.http.routers.backend.entrypoints=websecure
+      - traefik.http.routers.backend.tls.certresolver=letsencrypt
+      - traefik.http.services.backend.loadbalancer.server.port=5000
 
   frontend:
     image: ghcr.io/andrekn95/examendev-frontend:latest
