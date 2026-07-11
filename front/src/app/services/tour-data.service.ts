@@ -30,8 +30,8 @@ export interface Tour {
 export class TourDataService {
   // Inyectamos HttpClient al estilo Angular moderno
   private http = inject(HttpClient);
-  
-  // URL local de tu backend en Flask (luego en Docker cambiará a rutas relativas)
+
+  // URL local de tu backend en Flask (luego en Docker cambiará a rutas relativas) 
   private API_URL = 'https://backend.pilapanta.byronrm.com/api';
 
   huesped = signal<Huesped>({
