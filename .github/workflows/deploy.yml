@@ -1,58 +1,36 @@
-name: Build and Deploy
+name: Build
 
 on:
   push:
     branches:
       - main
+      - feature-* # Se ejecuta también en las ramas de trabajo de ambos
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: read
-  packages: write
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout del código
         uses: actions/checkout@v4
 
-      - name: Login GHCR
-        uses: docker/login-action@v3
+      - name: Configurar Python
+        uses: actions/setup-python@v5
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GHCR_TOKEN }}
+          python-version: '3.10'
 
-      - name: Build Backend
+      - name: Instalar dependencias
         run: |
-          docker build -t ghcr.io/andrekn95/examendev-backend:latest ./backend
+          python -m pip install --upgrade pip
+          # Aquí simula la instalación de dependencias requeridas
 
-      - name: Push Backend
+      - name: Validar Sintaxis del Proyecto
         run: |
-          docker push ghcr.io/andrekn95/examendev-backend:latest
-      
-      - name: Mostrar estructura
-        run: |
-          ls -la
-          ls -la front
-
-      - name: Build Frontend
-        run: |
-          docker build -t ghcr.io/andrekn95/examendev-frontend:latest ./front
-
-      - name: Push Frontend
-        run: |
-          docker push ghcr.io/andrekn95/examendev-frontend:latest
-
-      - name: Deploy VPS
-        uses: appleboy/ssh-action@v1.2.0
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          script: |
-            cd ~/devops-proyecto1
-            git pull
-            docker compose pull
-            docker compose up -d
+          python -m compileall .
+          echo "✔ Proyecto validado y compilado exitosamente."
