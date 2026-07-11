@@ -5,7 +5,7 @@ from psycopg2.extras import execute_values
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "https://pilapanta.byronrm.com"}})
 
 DB_HOST = os.getenv("DB_HOST", "localhost")
 DB_NAME = os.getenv("DB_NAME", "hotel_db")
