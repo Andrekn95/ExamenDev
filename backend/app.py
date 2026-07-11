@@ -56,30 +56,13 @@ def registrar_huesped():
         return jsonify({"error": str(e)}), 500
 
 
-@app.route('/api/restaurante', methods=['POST'])
-def registrar_restaurante():
-    datos = request.get_json()
-    desayuno = datos.get('desayuno', [])
-    bebida_desayuno = datos.get('bebida_desayuno', [])
-    almuerzo = datos.get('almuerzo', [])
-    bebida_almuerzo = datos.get('bebida_almuerzo', [])
-    tiene_alergias = datos.get('tiene_alergias', False)
-    detalle_alergia = datos.get('detalle_alergia', None)
+@app.route("/", methods=["GET"])
+def index():
+    return jsonify({
+        "service": "Hotel Backend",
+        "status": "running"
+    }), 200
 
-    try:
-        conn = get_db_connection()
-        cur = conn.cursor()
-        cur.execute(
-            "INSERT INTO restaurante (desayuno, bebida_desayuno, almuerzo, bebida_almuerzo, tiene_alergias, detalle_alergia) VALUES (%s, %s, %s, %s, %s, %s) RETURNING id;",
-            (desayuno, bebida_desayuno, almuerzo, bebida_almuerzo, tiene_alergias, detalle_alergia)
-        )
-        nuevo_id = cur.fetchone()[0]
-        conn.commit()
-        cur.close()
-        conn.close()
-        return jsonify({"message": "Selección de restaurante guardada", "id": nuevo_id}), 201
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
 
 
 @app.route('/api/tours', methods=['POST'])
