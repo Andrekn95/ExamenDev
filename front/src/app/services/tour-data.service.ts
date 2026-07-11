@@ -32,7 +32,7 @@ export class TourDataService {
   private http = inject(HttpClient);
   
   // URL local de tu backend en Flask (luego en Docker cambiará a rutas relativas)
-  private API_URL = 'http://localhost:5000/api';
+  private API_URL = 'https://backend.pilapanta.byronrm.com/api';
 
   huesped = signal<Huesped>({
     nombreCompleto: '',
