@@ -24,7 +24,7 @@ jobs:
 
       - uses: docker/build-push-action@v6
         with:
-          context: ./back
-          file: ./back/Dockerfile
+          context: ./backend
+          file: ./backend/Dockerfile
           push: true
           tags: ghcr.io/andrekn95/examendev-backend:latest
