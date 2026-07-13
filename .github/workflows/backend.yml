@@ -1,4 +1,4 @@
-name: Build Frontend
+name: Build Backend
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
 
       - uses: docker/build-push-action@v6
         with:
-          context: ./front
-          file: ./front/Dockerfile
+          context: ./back
+          file: ./back/Dockerfile
           push: true
-          tags: ghcr.io/andrekn95/examendev-frontend:latest
+          tags: ghcr.io/andrekn95/examendev-backend:latest
